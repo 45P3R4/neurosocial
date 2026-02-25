@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Neurosocial</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}" href="../static/css/reset.css">
+    <link rel="stylesheet" th:href="@{/css/home.css}" href="../static/css/home.css">
+</head>
+
+<body>
+    <header>
+        <div class="thread-header">
+            — Neurosocial —
+        </div>
+    </header>
+
+    <div class="comments-container">
+        <section class="comment">
+            <div class="comment-meta">
+                <span class="comment-author" th:text="${author}">Author</span>
+                <span class="comment-date" th:text="${timestamp}">Timestamp</span>
+            </div>
+            <div class="comment-text">
+                <p th:text="${message}">Message</p>
+            </div>
+            <div class="comment-actions">
+                <span class="comment-action">▲</span>
+                <span class="rating" th:text="${rating}">0</span>
+                <span class="comment-action">▼</span>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <a href="https://github.com/45P3R4">https://github.com/45P3R4</a>
+    </footer>
+
+</body>
+
+</html>
