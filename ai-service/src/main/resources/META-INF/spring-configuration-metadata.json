@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "nats.url",
+      "type": "java.lang.String",
+      "description": "NATS server URL (e.g., nats://localhost:4222)."
+    },
+    {
+      "name": "nats.connection.name",
+      "type": "java.lang.String",
+      "description": "Name for the NATS connection."
+    }
+  ]
+}
