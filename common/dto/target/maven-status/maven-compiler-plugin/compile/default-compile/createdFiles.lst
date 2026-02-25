@@ -1,0 +1,4 @@
+com\aspera\neurosocial\dto\Output.class
+com\aspera\neurosocial\dto\Stats.class
+com\aspera\neurosocial\dto\AiRequestDto.class
+com\aspera\neurosocial\dto\AiResponseDto.class
