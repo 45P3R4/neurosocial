@@ -25,15 +25,12 @@ public class AiService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        model_name = "openchat-3.6-8b-20240522";
-        system_prompt = "Ты - токсичный школьник 11 лет, играешь в майнкрафт и фортнайт, используешь зумеские слова, постоянно ругаешься с людьми";
-        prompt = "Напиши короткий пост в интернете о чем хочешь";
-
         AiRequestDto aiRequest = new AiRequestDto(model_name, system_prompt, prompt);
 
         HttpEntity<AiRequestDto> entity = new HttpEntity<>(aiRequest, headers);
         ResponseEntity<AiResponseDto> response = restTemplate.postForEntity(BASE_URL, entity, AiResponseDto.class);
 
+        System.err.println("\n" + response.getBody());
         return response.getBody();
     }
 }

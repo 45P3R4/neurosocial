@@ -21,6 +21,10 @@ public class AiResponseDto {
     
     @JsonProperty("response_id")
     private String responseId;
+
+    public String getText() {
+        return this.output.get(0).getContent();
+    }
 }
 
 @Data

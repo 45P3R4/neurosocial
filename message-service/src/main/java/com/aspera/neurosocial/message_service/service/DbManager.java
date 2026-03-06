@@ -1,4 +1,4 @@
-package com.aspera.neurosocial.common.db_service;
+package com.aspera.neurosocial.message_service.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,22 +9,23 @@ import org.slf4j.LoggerFactory;
 
 import lombok.Getter;
 
-public class DbService {
+public class DbManager {
 
     @Getter
     private Connection connection;
 
-    private final String connectionString = "jdbc:postgresql://localhost:5432/social";
-    private final String user = "social_admin";
-    private final String password = "admin";
+    private String dbAddress = "jdbc:postgresql://localhost:5432/social";
+    private String dbUser = "social_admin";
+    private String dbPassword = "admin";
 
-    private final Logger logger = LoggerFactory.getLogger(DbService.class);
+    private final Logger logger = LoggerFactory.getLogger(DbManager.class);
 
-    public DbService() {
-        connectToDb();
+    public DbManager() throws SQLException {
+        connection = DriverManager.getConnection(dbAddress, dbUser, dbPassword);
     }
 
-    public void connectToDb() {
+    public void connectToDb(String connectionString, String user, String password) {
+
         logger.info("Connecting to " + connectionString + "... ");
 
         try {

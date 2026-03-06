@@ -2,16 +2,20 @@ package com.aspera.neurosocial.message_service.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aspera.neurosocial.common.db_service.DbService;
+import com.aspera.neurosocial.message_service.service.DbManager;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,7 +23,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/message")
 public class MessageController {
 
-    private DbService db;
+    private DbManager db;
+
+	private String dbAddress = "jdbc:postgresql://localhost:5432/social";
+	private String dbUser = "social_admin";
+	private String dbPassword = "admin";
 
     private PreparedStatement createStatement;
     private PreparedStatement readStatement;
@@ -27,7 +35,9 @@ public class MessageController {
     private PreparedStatement deleteStatement;
 
     public MessageController() throws SQLException {
-        db = new DbService();
+        db = new DbManager();
+        db.connectToDb(dbAddress, dbUser, dbPassword);
+
         createStatement = db.getConnection().prepareStatement(
                 "insert into messages (parent_id, author_id, text, rating, timestamp) values (?, ?, ?, ?, ?);");
         readStatement = db.getConnection().prepareStatement("select * from messages where id = ?");
@@ -36,7 +46,7 @@ public class MessageController {
         deleteStatement = db.getConnection().prepareStatement("delete from messages where id = ?");
     }
 
-    @GetMapping("create")
+    @PostMapping("create")
     public boolean createMessage(
             @RequestParam long parent_id,
             @RequestParam long author_id,
@@ -60,7 +70,7 @@ public class MessageController {
     }
 
     @GetMapping("read/{id}")
-    public String readMessage(@PathVariable long id) throws SQLException {
+    public String readMessage(@PathVariable long id) throws SQLException, IOException, InterruptedException {
         readStatement.setLong(1, id);
 
         try (ResultSet rs = readStatement.executeQuery()) {
@@ -72,7 +82,7 @@ public class MessageController {
         }
     }
 
-    @GetMapping("update/{id}")
+    @PutMapping("update/{id}")
     public boolean updateMessage(
             @PathVariable long id,
             @RequestParam long parent_id,
@@ -97,7 +107,7 @@ public class MessageController {
         }
     }
 
-    @GetMapping("delete/{id}")
+    @DeleteMapping("delete/{id}")
     public boolean deleteMessage(@PathVariable long id) throws SQLException {
         deleteStatement.setLong(1, id);
         deleteStatement.executeUpdate();

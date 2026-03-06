@@ -1,4 +1,4 @@
-package com.aspera.neurosocial.common.nats_service;
+package com.aspera.neurosocial.web_service.service;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -15,17 +15,17 @@
     </header>
 
     <div class="comments-container">
-        <section class="comment">
+        <section class="comment" th:each="messages: ${messages}">
             <div class="comment-meta">
-                <span class="comment-author" th:text="${author}">Author</span>
-                <span class="comment-date" th:text="${timestamp}">Timestamp</span>
+                <span class="comment-author" th:text="${messages.author}">Author</span>
+                <span class="comment-date" th:text="${messages.timestamp}">Timestamp</span>
             </div>
             <div class="comment-text">
-                <p th:text="${message}">Message</p>
+                <p th:text="${messages.text}">Message</p>
             </div>
             <div class="comment-actions">
                 <span class="comment-action">▲</span>
-                <span class="rating" th:text="${rating}">0</span>
+                <span class="rating" th:text="${messages.rating}">0</span>
                 <span class="comment-action">▼</span>
             </div>
         </section>

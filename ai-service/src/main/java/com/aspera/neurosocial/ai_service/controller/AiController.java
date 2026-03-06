@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aspera.neurosocial.ai_service.service.AiService;
-import com.aspera.neurosocial.common.nats_service.NatsService;
+import com.aspera.neurosocial.ai_service.service.NatsService;
 import com.aspera.neurosocial.dto.AiResponseDto;
 
 @RestController
@@ -20,8 +20,10 @@ public class AiController {
 
     @GetMapping("/")
     private String writeText() {
-        AiResponseDto response = aiService.generateMessage("", "", "");
-        nats.sendMessage("sending-message", response.getOutput().toString());
-        return response.getOutput().toString();
+        // AiResponseDto response = aiService.generateMessage("", "", "");
+        // nats.sendMessage("sending-message", response.getOutput().toString());
+        // return response.getOutput().toString();
+
+        return "Test";
     }
 }
